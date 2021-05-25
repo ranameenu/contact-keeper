@@ -1,0 +1,114 @@
+/* body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+} */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #fff;
+  line-height: 1.1;
+}
+
+:root {
+  --primary: #4242a6;
+  --secondary: #a6a6a6;
+  --success: green;
+  --danger: #ff8080;
+}
+
+.submit,
+.edit-contact,
+.delete-contact,
+.contact-type,
+.add-contact input,
+.input-box,
+.card {
+  border-radius: 0;
+}
+
+.app .Navbar {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.Navbar .container .navbar-brand {
+  color: #fff;
+  font-size: 18px;
+  margin-left: 15px;
+}
+
+.Navbar .container .navbar-nav a {
+  font-size: 18px;
+  color: #fff;
+  margin-left: 15px;
+}
+.form {
+  margin-top: 30px;
+}
+
+.submit {
+  width: 100%;
+  border: 0;
+  background-color: var(--primary);
+}
+
+.Account-heading {
+  color: primary;
+}
+
+Form label {
+  color: var(--secondary);
+}
+
+.add-contact input {
+  margin-bottom: 20px;
+}
+
+.add-contact .submit {
+  width: 100%;
+}
+
+.account-heading {
+  color: var(--primary);
+}
+
+.contact-list .card {
+  background-color: #ede7e6;
+  margin-bottom: 20px;
+
+  font-size: 16px;
+}
+
+.card .edit-contact {
+  background-color: var(--secondary);
+  border: none;
+  padding: 5px 10px;
+}
+
+.card .delete-contact {
+  background-color: var(--danger);
+  border: none;
+  padding: 5px 10px;
+}
+
+.card .contact-type {
+  float: right;
+  background-color: var(--success);
+}
