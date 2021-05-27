@@ -77,8 +77,15 @@ Form label {
   color: var(--secondary);
 }
 
-.add-contact input {
-  margin-bottom: 20px;
+.form-group {
+  margin-bottom: 30px;
+}
+.form-group .input-box {
+  margin-bottom: 0 !important;
+}
+
+p {
+  color: red;
 }
 
 .add-contact .submit {
