@@ -1,32 +1,39 @@
 import React from 'react';
-import { Row, Col, Form, Button } from 'react-bootstrap';
 
 const Login = () => {
   return (
-    <div className="form ">
-      <h1 className="form-heading text-center">
-        Account
-        <span className="account-heading text-center"> Login</span>
-      </h1>
-      <Row className="d-flex justify-content-center">
-        <Col lg={4}>
-          <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email </Form.Label>
-              <Form.Control className="input-box mb-3" type="email" />
-            </Form.Group>
+    <div className="container">
+      <div className="row w-100 d-flex justify-content-center main-col ">
+        <div className="form col-12 col-md-8 col-xxl-5 ">
+          <div className="form-heading mb-4 text-center">
+            <h1>
+              Account <span className="heading-default-primary">Login</span>
+            </h1>
+          </div>
+          <div class="form-section">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">
+                Email address
+              </label>
+              <input
+                type="email"
+                class="form-control input"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">
+                Password
+              </label>
+              <input type="password" class="form-control input" />
+            </div>
 
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control className=" input-box mb-3" type="password" />
-            </Form.Group>
-
-            <Button className="submit" variant="primary" type="submit">
-              Login
-            </Button>
-          </Form>
-        </Col>
-      </Row>
+            <button type="submit" class=" submit btn btn-primary">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

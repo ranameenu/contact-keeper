@@ -1,8 +1,10 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Topbar from './Topbar';
 import Register from './Register';
-import Addcontact from './Addcontact';
 import Login from './Login';
+import AddContact from './AddContact';
+
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = () => {
@@ -11,7 +13,7 @@ const App = () => {
       <div className="app">
         <Topbar />
         <Switch>
-          <Route exact path="/" component={Addcontact} />
+          <Route exact path="/" component={AddContact} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
         </Switch>

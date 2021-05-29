@@ -1,116 +1,99 @@
 import React from 'react';
-import {
-  Form,
-  Button,
-  Row,
-  Col,
-  Card,
-  InputGroup,
-  FormControl,
-  Badge,
-} from 'react-bootstrap';
 import { HiMail } from 'react-icons/hi';
 import { AiTwotonePhone } from 'react-icons/ai';
 
-const Addcontact = () => {
+const AddContact = () => {
   return (
-    <div className="form add-contact">
-      <Row className="d-flex justify-content-center">
-        <Col lg={4}>
-          <h1 className="account-heading text-center">Add Contact</h1>
-          <Form>
-            <Form.Group controlId="formBasicName">
-              <Form.Control type="name" placeholder="Enter your name" />
-            </Form.Group>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Control type="email" placeholder="Enter email" />
-            </Form.Group>
-            <Form.Group controlId="Password">
-              <Form.Control type="password" placeholder="Create password" />
-            </Form.Group>
-
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Radio aria-label="Radio button for following text input" />
-              </InputGroup.Prepend>
-              <FormControl aria-label="Text input with radio button" />
-            </InputGroup>
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Radio aria-label="Radio button for following text input" />
-              </InputGroup.Prepend>
-              <FormControl aria-label="Text input with radio button" />
-            </InputGroup>
-
-            <Button className="submit" variant="primary" type="submit">
-              Add Contact
-            </Button>
-          </Form>
-        </Col>
-        <Col lg={4}>
-          <Form>
-            <Form.Group controlId="search-contact">
-              <Form.Control
-                type="search-contact"
-                placeholder="Filter Contact"
-              />
-            </Form.Group>
-          </Form>
-          <div className="contact-list">
-            <Card>
-              <Card.Body>
-                <Card.Title>
-                  Umesh Kumar <Badge className="contact-type">Personal</Badge>
-                </Card.Title>
-                <Card.Text>
-                  <p>
-                    <HiMail /> umesh@gmail.com
-                  </p>
-
-                  <p>
-                    <AiTwotonePhone /> 999-999-9999
-                  </p>
-                </Card.Text>
-                <Button className="edit-contact" type="submit">
-                  Edit
-                </Button>{' '}
-                <Button className="delete-contact" type="submit">
-                  Delete
-                </Button>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Body>
-                <Card.Title>
-                  Rakesh{' '}
-                  <Badge className="contact-type" variant="success">
-                    Personal
-                  </Badge>
-                </Card.Title>
-                <Card.Text>
-                  <p>
-                    {' '}
-                    <HiMail /> rakesh@gmail.com
-                  </p>
-                  <p>
-                    {' '}
-                    <AiTwotonePhone />
-                    555-555-5555
-                  </p>
-                </Card.Text>
-                <Button className="edit-contact" type="submit">
-                  Edit
-                </Button>{' '}
-                <Button className="delete-contact" type="submit">
-                  Delete
-                </Button>
-              </Card.Body>
-            </Card>
+    <div className="container">
+      <div className="row w-100 d-flex space-between justify-content-center main-col ">
+        <div className="form col-12 col-md-8 col-xxl-5 ">
+          <div className="form-heading mb-4 text-center">
+            <h1>
+              <span className="heading-default-primary"> Add Contact</span>
+            </h1>
           </div>
-        </Col>
-      </Row>
+          <div class="form-section">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">
+                Name
+              </label>
+              <input class="form-control input" type="text" />
+            </div>
+
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">
+                Email address
+              </label>
+              <input
+                type="email"
+                class="form-control input"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">
+                Phone Number
+              </label>
+              <input
+                type="text"
+                class="form-control bfh-phone"
+                data-format="+91 (ddd) ddd-dddd"
+              />
+            </div>
+            <div className="mb-3 ">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="personal" />
+                <label class="form-check-label" for="inlineCheckbox1">
+                  Personal
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  value="professional"
+                />
+                <label class="form-check-label" for="inlineCheckbox2">
+                  Professional
+                </label>
+              </div>
+            </div>
+            <button type="submit" class=" submit btn btn-primary">
+              Submit
+            </button>
+          </div>
+        </div>
+        <div className="form col-12 col-md-8 col-xxl-5 ">
+          <input
+            class="form-control input"
+            type="text"
+            placeholder="Filter Contact"
+          />
+          <div className="contact-list-body card mt-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title">Meenu</div>
+                <span class="badge bg-secondary">New</span>
+
+                <p class="contact-mail">
+                  <HiMail /> meenurana32@gmail.com
+                </p>
+                <p class="contact-number">
+                  <AiTwotonePhone /> 9999-999-999
+                </p>
+                <button type="button" class="btn btn-edit btn-sm btn-primary">
+                  Edit
+                </button>
+                <button type="button" class="btn btn-delete btn-sm btn-primary">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Addcontact;
+export default AddContact;
