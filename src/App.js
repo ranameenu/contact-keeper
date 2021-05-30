@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Topbar from './Topbar';
 import Register from './Register';
 import Login from './Login';

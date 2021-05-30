@@ -51,10 +51,10 @@ body {
 .submit,
 .input {
   width: 100%;
+  border-radius: 0;
 }
 
 .btn {
-  border-radius: 0;
   background-color: var(--primary);
 }
 
