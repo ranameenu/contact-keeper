@@ -1,8 +1,8 @@
 import React from 'react';
-import Topbar from './Topbar';
-import Register from './Register';
-import Login from './Login';
-import AddContact from './AddContact';
+import Topbar from './components/Topbar';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import AddContact from './pages/AddContact';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 

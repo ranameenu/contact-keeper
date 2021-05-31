@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import { MdPermContactCalendar } from 'react-icons/md';
-import { RiLogoutBoxFill } from 'react-icons/ri';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { AiFillContacts } from 'react-icons/ai';
+import { BiLogOutCircle } from 'react-icons/bi';
 
 const Topbar = () => {
   return (
     <div className="header">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
         <div className="container">
-          <a className="navbar-brand" href="/">
-            <MdPermContactCalendar /> Contact Keeper
-          </a>
+          <Link className="navbar-brand" to="/">
+            <AiFillContacts size={25} /> Contact Keeper
+          </Link>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#menu"
@@ -22,28 +23,20 @@ const Topbar = () => {
           <div className="collapse navbar-collapse" id="menu">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <a
-                  className="nav-link text-light "
-                  aria-current="page"
-                  href="/register"
-                >
+                <Link className="nav-link text-light " to="/register">
                   Register
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-light" href="/login">
+                <Link className="nav-link text-light" to="/login">
                   Login
-                </a>
+                </Link>
               </li>
+
               <li className="nav-item">
-                <a className="nav-link text-light" href="/">
-                  Add Contact
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link text-light" href="/">
-                  <RiLogoutBoxFill /> Logout
-                </a>
+                <Link className="nav-link text-light" to="#">
+                  <BiLogOutCircle size={25} /> Logout
+                </Link>
               </li>
             </ul>
           </div>
