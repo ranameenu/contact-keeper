@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
-import { isEmail } from '../utils/validation';
+import { isEmail } from '../utils/Validation';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email === '') {
-      setEmailErr('enter email id');
+      setEmailErr('Email required');
     } else if (!isEmail(email)) {
       setEmailErr('Email not valid');
     } else {
-      setEmailErr('null');
+      setEmailErr(null);
     }
 
     if (password === '') {
-      setPasswordErr('enter password');
-    } else if (password.length < 8) {
+      setPasswordErr('Enter password');
+    } else if (password.length < 6) {
       setPasswordErr('password length should be more than 8');
     } else {
       setPasswordErr(null);
@@ -35,42 +36,38 @@ const Login = () => {
               Account <span className="heading-default-primary">Login</span>
             </h1>
           </div>
-          <div class="form-section">
+          <div className="form-section">
             <form onSubmit={handleSubmit}>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">
-                  Email address
-                </label>
+              <div className="mb-3">
+                <label className="form-label">Email address</label>
                 <input
                   type="text"
                   value={email}
-                  class={`form-control input ${
+                  className={`form-control input ${
                     emailErr !== null ? 'is-invalid' : ''
                   }`}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <div class="invalid-feedback">
+                <div className="invalid-feedback">
                   {emailErr !== null && emailErr}
                 </div>
               </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">
-                  Password
-                </label>
+              <div className="mb-3">
+                <label className="form-label">Password</label>
                 <input
                   type="password"
                   value={password}
-                  class={`form-control input ${
+                  className={`form-control input ${
                     passwordErr !== null ? 'is-invalid' : ''
                   }`}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <div class="invalid-feedback">
+                <div className="invalid-feedback">
                   {passwordErr !== null && passwordErr}
                 </div>
               </div>
 
-              <button type="submit" class=" submit btn btn-primary">
+              <button type="submit" className=" submit btn btn-primary">
                 Submit
               </button>
             </form>

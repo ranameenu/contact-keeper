@@ -2,7 +2,7 @@ import React from 'react';
 import { HiMail } from 'react-icons/hi';
 import { AiTwotonePhone } from 'react-icons/ai';
 
-const AddContact = () => {
+const Dashboard = () => {
   return (
     <div className="container">
       <div className="row w-100 d-flex  justify-content-center ">
@@ -119,4 +119,4 @@ const AddContact = () => {
   );
 };
 
-export default AddContact;
+export default Dashboard;

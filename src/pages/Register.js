@@ -1,20 +1,34 @@
 import React, { useState } from 'react';
-import { isEmail } from '../utils/validation';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { isEmail } from '../utils/Validation';
+import { URL } from '../utils/Config';
+
+import Alert from '../components/Alert';
 
 const Register = () => {
+  const history = useHistory();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setCconfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const [nameErr, setNameErr] = useState(null);
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
   const [confirmPasswordErr, setConfirmPasswordErr] = useState(null);
 
-  const handleSubmit = (e) => {
+  const [alert, setAlert] = useState({
+    display: false,
+    type: '',
+    msg: '',
+  });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (name === '') {
-      setNameErr('Enter your name');
+      setNameErr('Email your name');
     } else {
       setNameErr(null);
     }
@@ -29,8 +43,8 @@ const Register = () => {
 
     if (password === '') {
       setPasswordErr('Enter password');
-    } else if (password.length <= 8) {
-      setPasswordErr('Password length should exceed 8');
+    } else if (password.length < 6) {
+      setPasswordErr('Password weak make it more than 6 character');
     } else {
       setPasswordErr(null);
     }
@@ -43,78 +57,125 @@ const Register = () => {
       setConfirmPasswordErr(null);
     }
 
-    console.log(name, email, password);
+    try {
+      if (name !== '' && email !== '' && password !== '') {
+        const payload = {
+          name,
+          email,
+          password,
+        };
+
+        const res = await axios.post(`${URL}/api/v1/users`, payload, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (res.data.success) {
+          console.log(res);
+          localStorage.setItem('token', res.data.token);
+        } else {
+          localStorage.removeItem('token');
+        }
+        // Reset & Redirect
+        history.push('/');
+        handleReset();
+      }
+    } catch (error) {
+      if (!error.response.data.success) {
+        setAlert({
+          display: true,
+          type: 'danger',
+          msg: error.response.data.message,
+        });
+      }
+    }
   };
+
+  const handleReset = () => {
+    setName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+
+    setAlert({
+      display: false,
+      type: '',
+      msg: '',
+    });
+  };
+
   return (
     <div className="container">
       <div className="row w-100 d-flex justify-content-center main-col ">
         <div className="form col-12 col-md-8 col-xxl-5 ">
+          {alert.display && <Alert type={alert.type} msg={alert.msg} />}
           <div className="form-heading mb-4 text-center">
             <h1>
               Account <span className="heading-default-primary">Register</span>
             </h1>
           </div>
-          <div class="form-section">
+          <div className="form-section">
             <form onSubmit={handleSubmit}>
-              <div class="mb-3">
-                <label class="form-label">Name</label>
+              <div className="mb-3">
+                <label className="form-label">Name</label>
                 <input
-                  class={`form-control input ${
+                  className={`form-control input ${
                     nameErr !== null ? 'is-invalid' : ''
                   }`}
                   value={name}
                   type="text"
                   onChange={(e) => setName(e.target.value)}
                 />
-                <div class="invalid-feedback">
+                <div className="invalid-feedback">
                   {nameErr !== null && nameErr}
                 </div>
               </div>
 
-              <div class="mb-3">
-                <label class="form-label">Email address</label>
+              <div className="mb-3">
+                <label className="form-label">Email address</label>
                 <input
-                  type="email"
-                  class={`form-control input ${
+                  type="type"
+                  className={`form-control input ${
                     emailErr !== null ? 'is-invalid' : ''
                   }`}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <div class="invalid-feedback">
+                <div className="invalid-feedback">
                   {emailErr !== null && emailErr}
                 </div>
               </div>
-              <div class="mb-3">
-                <label class="form-label">Password</label>
+              <div className="mb-3">
+                <label className="form-label">Password</label>
                 <input
                   type="password"
-                  class={`form-control input ${
+                  className={`form-control input ${
                     passwordErr !== null ? 'is-invalid' : ''
                   }`}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <div class="invalid-feedback">
+                <div className="invalid-feedback">
                   {passwordErr !== null && passwordErr}
                 </div>
               </div>
-              <div class="mb-3">
-                <label class="form-label">Confirm Password</label>
+              <div className="mb-3">
+                <label className="form-label">Confirm Password</label>
                 <input
                   type="password"
-                  class={`form-control input ${
+                  className={`form-control input ${
                     confirmPasswordErr !== null ? 'is-invalid' : ''
                   }`}
                   value={confirmPassword}
-                  onChange={(e) => setCconfirmPassword(e.target.value)}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
-                <div class="invalid-feedback">
+                <div className="invalid-feedback">
                   {confirmPasswordErr !== null && confirmPasswordErr}
                 </div>
               </div>
 
-              <button type="submit" class="submit btn btn-primary">
+              <button type="submit" className="submit btn btn-primary">
                 Submit
               </button>
             </form>
