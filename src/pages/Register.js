@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { isEmail } from '../utils/Validation';
-import { URL } from '../utils/Config';
+import { API_URL } from '../utils/Config';
 
 import Alert from '../components/Alert';
 
@@ -27,67 +27,91 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let flagName = false;
+    let flagEmail = false;
+    let flagPassword = false;
+    let flagConfirmPassword = false;
+
     if (name === '') {
-      setNameErr('Email your name');
+      setNameErr('Enter your name');
+      flagName = true;
     } else {
       setNameErr(null);
+      flagName = false;
     }
 
     if (email === '') {
       setEmailErr('Enter your email');
+      flagEmail = true;
     } else if (!isEmail(email)) {
       setEmailErr('Please enter valid email id');
+      flagEmail = true;
     } else {
       setEmailErr(null);
+      flagEmail = false;
     }
 
     if (password === '') {
       setPasswordErr('Enter password');
+      flagPassword = true;
     } else if (password.length < 6) {
-      setPasswordErr('Password weak make it more than 6 character');
+      setPasswordErr('Password length should exceed 6');
+      flagPassword = true;
     } else {
       setPasswordErr(null);
+      flagPassword = false;
     }
 
     if (confirmPassword === '') {
       setConfirmPasswordErr(`Confirm password can't be blank`);
+      flagConfirmPassword = true;
     } else if (confirmPassword !== password) {
       setConfirmPasswordErr('Invalid or mismatch password');
+      flagConfirmPassword = true;
     } else {
       setConfirmPasswordErr(null);
+      flagConfirmPassword = false;
     }
 
-    try {
-      if (name !== '' && email !== '' && password !== '') {
-        const payload = {
-          name,
-          email,
-          password,
-        };
+    if (
+      flagName === false &&
+      flagEmail === false &&
+      flagPassword === false &&
+      flagConfirmPassword === false
+    ) {
+      const payload = {
+        name,
+        email,
+        password,
+      };
 
-        const res = await axios.post(`${URL}/api/v1/users`, payload, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      try {
+        const res = await axios.post(`${API_URL}/api/v1/users`, payload, {
+          headers: { 'Content-Type': 'application/json' },
         });
 
         if (res.data.success) {
-          console.log(res);
           localStorage.setItem('token', res.data.token);
         } else {
           localStorage.removeItem('token');
         }
-        // Reset & Redirect
+
+        // Redirect & Reset
         history.push('/');
+
         handleReset();
-      }
-    } catch (error) {
-      if (!error.response.data.success) {
-        setAlert({
-          display: true,
-          type: 'danger',
-          msg: error.response.data.message,
-        });
+      } catch (err) {
+        console.log(err.response.data.message);
+        if (!err.response.data.success) {
+          setAlert({
+            display: true,
+            type: 'danger',
+            msg: err.response.data.message,
+          });
+        }
+
+        console.log(err);
       }
     }
   };
@@ -110,6 +134,7 @@ const Register = () => {
       <div className="row w-100 d-flex justify-content-center main-col ">
         <div className="form col-12 col-md-8 col-xxl-5 ">
           {alert.display && <Alert type={alert.type} msg={alert.msg} />}
+
           <div className="form-heading mb-4 text-center">
             <h1>
               Account <span className="heading-default-primary">Register</span>
