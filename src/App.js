@@ -9,8 +9,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 const App = () => {
   return (
     <Router>
-      <div className="app">
-        <Topbar />
+      <Topbar />
+      <div className="container">
         <Switch>
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/register" component={Register} />

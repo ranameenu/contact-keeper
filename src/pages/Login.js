@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { isEmail } from '../utils/Validation';
+import React, { useState, useEffect } from 'react';
+import Validate from '../utils/Validate';
 import axios from 'axios';
 import { API_URL } from '../utils/Config';
 import { useHistory } from 'react-router-dom';
@@ -9,8 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [emailErr, setEmailErr] = useState(null);
-  const [passwordErr, setPasswordErr] = useState(null);
+  const [errors, setErrors] = useState({});
 
   const history = useHistory();
 
@@ -20,35 +19,21 @@ const Login = () => {
     type: '',
   });
 
+  useEffect(() => {
+    return () => {
+      setEmail('');
+      setPassword('');
+    };
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let flagEmail = false;
-    let flagPassword = false;
+    const resErrors = Validate({ email, password });
+    setErrors(resErrors);
+    console.log(resErrors);
 
-    if (email === '') {
-      setEmailErr('Email required');
-      flagEmail = true;
-    } else if (!isEmail(email)) {
-      setEmailErr('Email not valid');
-      flagEmail = true;
-    } else {
-      setEmailErr(null);
-      flagEmail = false;
-    }
-
-    if (password === '') {
-      setPasswordErr('Enter password');
-      flagPassword = true;
-    } else if (password.length < 6) {
-      setPasswordErr('password length should be more than 8');
-      flagPassword = true;
-    } else {
-      setPasswordErr(null);
-      flagPassword = false;
-    }
-
-    if (flagEmail === false && flagPassword === false) {
+    if (resErrors.count === 0) {
       const payload = {
         email,
         password,
@@ -65,9 +50,6 @@ const Login = () => {
 
         // Redirect & reset
         history.push('/');
-
-        setEmail('');
-        setPassword('');
       } catch (error) {
         if (!error.response.data.success) {
           setAlert({ display: true, msg: 'User not Exist', type: 'danger' });
@@ -96,12 +78,12 @@ const Login = () => {
                   type="text"
                   value={email}
                   className={`form-control input ${
-                    emailErr !== null ? 'is-invalid' : ''
+                    errors.email ? 'is-invalid' : ''
                   }`}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <div className="invalid-feedback">
-                  {emailErr !== null && emailErr}
+                  {errors.email && errors.email}
                 </div>
               </div>
               <div className="mb-3">
@@ -110,12 +92,12 @@ const Login = () => {
                   type="password"
                   value={password}
                   className={`form-control input ${
-                    passwordErr !== null ? 'is-invalid' : ''
+                    errors.password ? 'is-invalid' : ''
                   }`}
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <div className="invalid-feedback">
-                  {passwordErr !== null && passwordErr}
+                  {errors.password && errors.password}
                 </div>
               </div>
 
