@@ -76,8 +76,8 @@ const Register = () => {
   };
 
   return (
-    <div className="row w-100 d-flex justify-content-center main-col ">
-      <div className="form col-12 col-md-10 col-lg-8 col-xl-6 col-xxl-5 ">
+    <div className="row justify-content-center">
+      <div className="form col-md-5  ">
         {alert.display && <Alert type={alert.type} msg={alert.msg} />}
 
         <div className="form-heading mb-4 text-center">
@@ -105,7 +105,7 @@ const Register = () => {
             <div className="mb-3">
               <label className="form-label">Email address</label>
               <input
-                type="type"
+                type="text"
                 className={`form-control input ${
                   errors.email ? 'is-invalid' : ''
                 }`}
