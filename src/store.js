@@ -3,8 +3,11 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 // Reducers
+import { loginUserReducer } from './redux/authReducers';
 
-const reducer = combineReducers({});
+const reducer = combineReducers({
+  loginUser: loginUserReducer,
+});
 const initialState = {};
 
 const middleware = [thunk];

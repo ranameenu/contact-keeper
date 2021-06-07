@@ -1,6 +1,6 @@
 export const Validate = (input) => {
   const errors = {};
-  const { name, email, password, confirmPassword, phone, type } = input;
+  const { name, email, password, confirmPassword } = input;
 
   //   Name
   if (name === '') {
@@ -28,18 +28,6 @@ export const Validate = (input) => {
     errors.confirmPassword = 'This field is required';
   } else if (confirmPassword && confirmPassword !== password) {
     errors.confirmPassword = 'Password are not same';
-  }
-
-  // Phone
-  if (phone === '') {
-    errors.phone = "Please enter user's phone number";
-  } else if (phone.length !== 10) {
-    errors.phone = 'Enter valid phone number';
-  }
-
-  // Type
-  if (type === '') {
-    errors.type = 'Enter type of contact you want to save';
   }
 
   errors.count = Object.keys(errors).length;

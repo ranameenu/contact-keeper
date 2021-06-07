@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Validate from '../utils/Validate';
-import axios from 'axios';
-import { API_URL } from '../utils/Config';
+
 import { useHistory } from 'react-router-dom';
 import Alert from '../components/Alert';
+
+import { loginUser } from '../redux/authActions';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,6 +14,7 @@ const Login = () => {
   const [errors, setErrors] = useState({});
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const [alert, setAlert] = useState({
     display: false,
@@ -31,32 +34,16 @@ const Login = () => {
 
     const resErrors = Validate({ email, password });
     setErrors(resErrors);
-    console.log(resErrors);
 
+    // Call to Action
     if (resErrors.count === 0) {
-      const payload = {
-        email,
-        password,
-      };
-      try {
-        const res = await axios.post(`${API_URL}/api/v1/auth`, payload, {
-          headers: { 'Content-Type': 'application/json' },
-        });
-        if (res.data.success) {
-          localStorage.setItem('token', res.data.token);
-        } else {
-          localStorage.removeItem('token');
-        }
-
-        // Redirect & reset
-        history.push('/');
-      } catch (error) {
-        if (!error.response.data.success) {
-          setAlert({ display: true, msg: 'User not Exist', type: 'danger' });
-          setEmail('');
-          setPassword('');
-        }
-      }
+      dispatch(
+        loginUser({
+          email,
+          password,
+        })
+      );
+      history.push('/');
     }
   };
 
