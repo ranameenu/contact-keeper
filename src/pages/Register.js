@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Validate from '../utils/Validate';
 import { API_URL } from '../utils/Config';
-import Alert from '../components/Alert';
+// import Alert from '../components/Alert';
 
 const Register = () => {
   const history = useHistory();
@@ -15,11 +15,11 @@ const Register = () => {
 
   const [errors, setErrors] = useState({});
 
-  const [alert, setAlert] = useState({
-    display: false,
-    type: '',
-    msg: '',
-  });
+  // const [alert, setAlert] = useState({
+  //   display: false,
+  //   type: '',
+  //   msg: '',
+  // });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,11 +52,11 @@ const Register = () => {
       } catch (err) {
         console.log(err.response);
         if (err.response.data.success === false) {
-          setAlert({
-            display: true,
-            type: 'danger',
-            msg: err.response.data.message,
-          });
+          // setAlert({
+          //   display: true,
+          //   type: 'danger',
+          //   msg: err.response.data.message,
+          // });
         }
       }
     }
@@ -68,17 +68,17 @@ const Register = () => {
     setPassword('');
     setConfirmPassword('');
 
-    setAlert({
-      display: false,
-      type: '',
-      msg: '',
-    });
+    // setAlert({
+    //   display: false,
+    //   type: '',
+    //   msg: '',
+    // });
   };
 
   return (
     <div className="row justify-content-center">
       <div className="form col-md-5  ">
-        {alert.display && <Alert type={alert.type} msg={alert.msg} />}
+        {/* {alert.display && <Alert type={alert.type} msg={alert.msg} />} */}
 
         <div className="form-heading mb-4 text-center">
           <h1>

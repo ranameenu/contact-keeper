@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Validate from '../utils/Validate';
-
-import { useHistory } from 'react-router-dom';
+import Spinner from '../components/spinner/Spinner';
 import Alert from '../components/Alert';
-
-import { loginUser } from '../redux/authActions';
-import { useDispatch } from 'react-redux';
+import { loginUser } from '../redux/auth/authActions';
+import { setAlert, resetAlert } from '../redux/alert/alertActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -13,21 +12,24 @@ const Login = () => {
 
   const [errors, setErrors] = useState({});
 
-  const history = useHistory();
   const dispatch = useDispatch();
 
-  const [alert, setAlert] = useState({
-    display: false,
-    msg: '',
-    type: '',
-  });
+  const login = useSelector((state) => state.loginUser);
+
+  // Destructure login the state saved in store by reducer
+  const { loading, error } = login;
 
   useEffect(() => {
+    if (error) {
+      dispatch(setAlert(error));
+    } else {
+      dispatch(resetAlert());
+    }
     return () => {
       setEmail('');
       setPassword('');
     };
-  }, []);
+  }, [dispatch, error]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,14 +45,17 @@ const Login = () => {
           password,
         })
       );
-      history.push('/');
     }
   };
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="row justify-content-center ">
       <div className="form col-md-5 ">
-        {alert.display && <Alert type={alert.type} msg={alert.msg} />}
+        {error && <Alert />}
         <div className="form-heading mb-4 text-center">
           <h1>
             Account <span className="heading-default-primary">Login</span>

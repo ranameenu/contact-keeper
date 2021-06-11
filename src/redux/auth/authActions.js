@@ -1,6 +1,6 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL } from './types';
 import axios from 'axios';
-import { API_URL } from '../utils/Config';
+import { API_URL } from '../../utils/Config';
 
 export const loginUser = (data) => async (dispatch) => {
   try {
@@ -19,10 +19,11 @@ export const loginUser = (data) => async (dispatch) => {
     });
 
     localStorage.setItem('token', res.data.token);
-  } catch (err) {
+  } catch (error) {
+    console.log(error);
     dispatch({
       type: LOGIN_FAIL,
-      payload: err.response.data,
+      payload: error.response.data,
     });
   }
 };
